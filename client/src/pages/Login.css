@@ -1,0 +1,239 @@
+/* Login.css */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  --primary-color: #CF4A2A;
+  --primary-dark: #B53D20;
+  --text-color: #1A1A1A;
+  --text-light: #555555;
+  --border-color: #E0E0E0;
+  --background-color: #FAFAFA;
+  --white: #FFFFFF;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.page-container {
+  display: flex;
+  min-height: 100vh;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: var(--background-color);
+}
+
+.login-container {
+  width: 100%;
+  max-width: 480px;
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.login-header {
+  padding: 24px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--text-color);
+}
+
+.logo svg {
+  margin-right: 12px;
+}
+
+.login-content {
+  padding: 32px 24px;
+}
+
+.login-title {
+  text-align: left;
+  margin-bottom: 32px;
+}
+
+.login-title h1 {
+  font-family: 'Source Serif Pro', serif;
+  font-weight: 700;
+  font-size: 2.4rem;
+  line-height: 1.2;
+  color: var(--text-color);
+  margin-bottom: 12px;
+}
+
+.login-title p {
+  color: var(--text-light);
+  font-size: 1rem;
+}
+
+.login-form-container {
+  padding: 24px 0;
+}
+
+.login-options {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.google-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--white);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-color);
+  transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.google-login:hover {
+  background-color: #F9F9F9;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.google-login img {
+  width: 18px;
+  height: 18px;
+  margin-right: 10px;
+}
+
+.separator {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: var(--text-light);
+  font-size: 14px;
+  margin: 16px 0;
+}
+
+.separator::before,
+.separator::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.separator span {
+  padding: 0 10px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(207, 74, 42, 0.1);
+}
+
+.login-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 14px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.login-button:hover {
+  background-color: var(--primary-dark);
+}
+
+.login-button:disabled {
+  background-color: #E0E0E0;
+  color: #9E9E9E;
+  cursor: not-allowed;
+}
+
+.login-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: var(--text-light);
+  font-size: 14px;
+}
+
+.login-footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.login-footer a:hover {
+  text-decoration: underline;
+}
+
+.privacy-notice {
+  font-size: 12px;
+  margin-top: 16px;
+  color: var(--text-light);
+}
+
+.error-message {
+  background-color: #FFEBEE;
+  color: #D32F2F;
+  padding: 12px 16px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  border-left: 4px solid #F44336;
+}
+
+/* Responsive design */
+@media (max-width: 520px) {
+  .login-container {
+    box-shadow: none;
+    background: transparent;
+  }
+  
+  .login-title h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .login-title h1 {
+    font-size: 1.8rem;
+  }
+  
+  .login-content {
+    padding: 24px 16px;
+  }
+  
+  .login-button, 
+  .google-login,
+  .form-group input {
+    padding: 12px;
+  }
+}

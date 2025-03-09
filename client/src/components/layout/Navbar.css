@@ -1,0 +1,224 @@
+/* client/src/components/layout/Navbar.css */
+.navbar {
+    background-color: var(--primary-color);
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  }
+  
+  .navbar-container {
+    width: 100%;
+    max-width: 1400px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 1.5rem;
+    height: 100%;
+  }
+  
+  .navbar-logo {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--text-light);
+  }
+  
+  .navbar-logo a {
+    color: var(--text-light);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  
+  .nav-menu li {
+    height: 100%;
+    position: relative;
+  }
+  
+  .nav-menu li a,
+  .nav-menu li .logout-btn {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.2rem;
+    color: var(--text-light);
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .nav-menu li a i,
+  .nav-menu li .logout-btn i {
+    margin-right: 0.5rem;
+    font-size: 1rem;
+  }
+  
+  .nav-menu li a span,
+  .nav-menu li .logout-btn span {
+    font-size: 0.95rem;
+  }
+  
+  .nav-menu li a:hover,
+  .nav-menu li .logout-btn:hover {
+    background-color: var(--primary-dark);
+  }
+  
+  .nav-menu li.active a {
+    background-color: var(--primary-dark);
+    font-weight: 600;
+  }
+  
+  .nav-menu li.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-light);
+  }
+  
+  .menu-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .nav-user-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-left: 1rem;
+    padding-left: 1rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
+    height: 100%;
+  }
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-light);
+  }
+  
+  .user-info {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .user-name {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-light);
+  }
+  
+  .logout-link {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+  
+  .logout-link:hover {
+    color: var(--text-light);
+  }
+  
+  .nav-item-mobile {
+    display: none;
+  }
+  
+  /* Адаптивный дизайн */
+  @media screen and (max-width: 992px) {
+    .nav-menu li a span,
+    .nav-menu li .logout-btn span {
+      display: none;
+    }
+    
+    .nav-menu li a i,
+    .nav-menu li .logout-btn i {
+      margin-right: 0;
+      font-size: 1.2rem;
+    }
+    
+    .nav-menu li a,
+    .nav-menu li .logout-btn {
+      padding: 0 1rem;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .menu-toggle {
+      display: block;
+    }
+    
+    .nav-menu {
+      position: fixed;
+      flex-direction: column;
+      background-color: var(--primary-color);
+      top: 60px;
+      left: -100%;
+      width: 100%;
+      height: calc(100vh - 60px);
+      transition: all 0.3s ease;
+      z-index: 999;
+      overflow-y: auto;
+    }
+    
+    .nav-menu.show {
+      left: 0;
+    }
+    
+    .nav-menu li {
+      width: 100%;
+      height: 60px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu li a,
+    .nav-menu li .logout-btn {
+      width: 100%;
+      padding: 0 2rem;
+      justify-content: flex-start;
+    }
+    
+    .nav-menu li a span,
+    .nav-menu li .logout-btn span {
+      display: inline;
+      margin-left: 0.5rem;
+    }
+    
+    .nav-menu li.active::after {
+      display: none;
+    }
+    
+    .nav-user-section {
+      display: none;
+    }
+    
+    .nav-item-mobile {
+      display: block;
+      margin-top: auto;
+    }
+  }
