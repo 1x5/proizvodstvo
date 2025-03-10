@@ -1,13 +1,12 @@
 // client/src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import { StatusProvider } from './context/StatusContext';
 import { SettingsProvider } from './context/SettingsContext';
 import PrivateRoute from './components/routing/PrivateRoute';
 import Navbar from './components/layout/Navbar';
-import { Link } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import TaskBoard from './pages/TaskBoard';
@@ -45,20 +44,26 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
+// Компонент для условного рендеринга навигационной панели
+const AppLayout = ({ children }) => {
+  const location = useLocation();
+  
+  // Скрываем навигацию на страницах входа и регистрации
+  const hideNavbar = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/';
+  
+  return (
+    <>
+      {!hideNavbar && <Navbar />}
+      <div className={hideNavbar ? 'container-no-navbar' : 'container'}>
+        {children}
+      </div>
+    </>
+  );
+};
+
 const App = () => {
   // Домашняя страница определена непосредственно здесь
-  const Home = () => (
-    <div className="home-container">
-      <h1 className="home-title">Система управления производством</h1>
-      <p className="home-subtitle">
-        Универсальное решение для управления производственными задачами и рабочими процессами
-      </p>
-      <div className="home-buttons">
-        <Link to="/register" className="btn btn-primary">Регистрация</Link>
-        <Link to="/login" className="btn btn-outline">Вход</Link>
-      </div>
-    </div>
-  );
+  const Home = () => <Login />;
 
   return (
     <AuthProvider>
@@ -67,71 +72,77 @@ const App = () => {
           <TaskProvider>
             <Router>
               <div className="app-container">
-                <Navbar />
-                <div className="container">
-                  <Routes>
-                    <Route path="/" element={<Home />} />
-                    <Route path="/login" element={<Login />} />
-                    <Route path="/register" element={<Register />} />
-                    <Route 
-                      path="/tasks" 
-                      element={
-                        <PrivateRoute>
-                          <TaskBoard />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/tasks/:id" 
-                      element={
-                        <PrivateRoute>
-                          <TaskDetail />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/calendar" 
-                      element={
-                        <PrivateRoute>
-                          <Calendar />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/reports" 
-                      element={
-                        <PrivateRoute>
-                          <Reports />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/clients" 
-                      element={
-                        <PrivateRoute>
-                          <Clients />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/settings" 
-                      element={
-                        <PrivateRoute>
-                          <Settings />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route 
-                      path="/users" 
-                      element={
-                        <PrivateRoute>
-                          <UserManagement />
-                        </PrivateRoute>
-                      } 
-                    />
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </div>
+                <Routes>
+                  <Route path="/" element={
+                    <AppLayout>
+                      <Home />
+                    </AppLayout>
+                  } />
+                  <Route path="/login" element={
+                    <AppLayout>
+                      <Login />
+                    </AppLayout>
+                  } />
+                  <Route path="/register" element={
+                    <AppLayout>
+                      <Register />
+                    </AppLayout>
+                  } />
+                  <Route path="/tasks" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <TaskBoard />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="/tasks/:id" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <TaskDetail />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="/calendar" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <Calendar />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="/reports" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <Reports />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="/clients" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <Clients />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="/settings" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <Settings />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="/users" element={
+                    <AppLayout>
+                      <PrivateRoute>
+                        <UserManagement />
+                      </PrivateRoute>
+                    </AppLayout>
+                  } />
+                  <Route path="*" element={
+                    <AppLayout>
+                      <NotFound />
+                    </AppLayout>
+                  } />
+                </Routes>
               </div>
             </Router>
           </TaskProvider>
