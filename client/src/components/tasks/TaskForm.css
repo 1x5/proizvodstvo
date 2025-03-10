@@ -1,0 +1,191 @@
+/* client/src/components/tasks/TaskForm.css */
+/* client/src/components/tasks/TaskForm.css */
+
+/* Улучшение стилей для выпадающих списков */
+select, .form-select {
+    appearance: auto;
+    -webkit-appearance: menulist;
+    -moz-appearance: menulist;
+    background-color: var(--input-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: 0.75rem;
+    width: 100%;
+    font-size: 1rem;
+  }
+  
+  select:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(79, 93, 255, 0.2);
+  }
+  
+  /* Стиль для стрелки выпадающего списка */
+  select::-ms-expand, .form-select::-ms-expand {
+    display: block;
+  }
+  
+  /* Исправление для селекторов даты */
+  .react-datepicker__input-container input {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: var(--input-bg);
+    color: var(--text-color);
+  }
+  
+.task-form {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    width: 100%;
+  }
+  
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .form-col {
+    flex: 1;
+    min-width: 200px;
+  }
+  
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .error-message {
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+  
+  .error-border {
+    border-color: var(--danger-color) !important;
+  }
+  
+  .required {
+    color: var(--danger-color);
+  }
+  
+  .custom-fields-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .react-datepicker-wrapper, 
+  .react-datepicker__input-container {
+    display: block;
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .form-col {
+      width: 100%;
+    }
+    
+    .form-actions {
+      flex-direction: column-reverse;
+      width: 100%;
+    }
+    
+    .form-actions button {
+      width: 100%;
+    }
+  }
+
+
+
+.form-container {
+    width: 100%;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  
+  .form-col {
+    flex: 1;
+    min-width: 250px;
+  }
+  
+  .required {
+    color: var(--danger-color);
+    margin-left: 4px;
+  }
+  
+  .error-border {
+    border-color: var(--danger-color) !important;
+  }
+  
+  .error-message {
+    color: var(--danger-color);
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .custom-fields-section {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.5rem;
+    margin-top: 1.5rem;
+  }
+  
+  .card-subtitle {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-color);
+  }
+  
+  /* Настройка DatePicker */
+  .react-datepicker-wrapper {
+    width: 100%;
+  }
+  
+  .react-datepicker__input-container input {
+    width: 100%;
+  }
+  
+  @media (max-width: 768px) {
+    .form-row {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    
+    .form-actions {
+      flex-direction: column;
+    }
+    
+    .form-actions button {
+      width: 100%;
+    }
+  }

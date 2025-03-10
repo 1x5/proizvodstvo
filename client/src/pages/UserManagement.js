@@ -1,6 +1,8 @@
+// client/src/pages/UserManagement.js
 import React, { useContext, useEffect } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import UserList from '../components/users/UserList';
+import './UserManagement.css'; // Добавляем импорт стилей
 
 const UserManagement = ({ history }) => {
   const authContext = useContext(AuthContext);

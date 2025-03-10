@@ -1,0 +1,213 @@
+/* client/src/pages/UserManagement.css */
+.user-management-page {
+    padding: 1.5rem;
+    width: 100%;
+  }
+  
+  .user-management-page h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+  }
+  
+  .user-list {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    width: 100%;
+  }
+  
+  .user-list h3 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.75rem;
+  }
+  
+  /* Таблица пользователей */
+  .users-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
+  
+  .users-table th, 
+  .users-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .users-table th {
+    font-weight: 500;
+    color: var(--text-color);
+    background-color: var(--background-color);
+  }
+  
+  .users-table tbody tr {
+    transition: background-color 0.2s ease;
+  }
+  
+  .users-table tbody tr:hover {
+    background-color: var(--hover-color);
+  }
+  
+  /* Бейджи ролей */
+  .role-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .role-admin {
+    background-color: rgba(244, 67, 54, 0.15);
+    color: var(--danger-color);
+  }
+  
+  .role-manager {
+    background-color: rgba(33, 150, 243, 0.15);
+    color: var(--info-color);
+  }
+  
+  .role-worker {
+    background-color: rgba(76, 175, 80, 0.15);
+    color: var(--success-color);
+  }
+  
+  /* Модальное окно */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+  }
+  
+  .modal {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+    animation: modal-appear 0.3s ease;
+  }
+  
+  @keyframes modal-appear {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  .modal-header h4 {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--text-color);
+    margin: 0;
+  }
+  
+  .close-btn {
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: var(--gray-text);
+    transition: color 0.2s ease;
+  }
+  
+  .close-btn:hover {
+    color: var(--danger-color);
+  }
+  
+  .modal-body {
+    padding: 1.5rem;
+  }
+  
+  .modal-body p {
+    margin-bottom: 1rem;
+    color: var(--text-color);
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  /* Кнопки действий */
+  .btn-sm {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.85rem;
+  }
+  
+  .btn-sm i {
+    margin-right: 0.3rem;
+  }
+  
+  /* Адаптивность для таблицы */
+  @media (max-width: 992px) {
+    .users-table th:nth-child(4),
+    .users-table td:nth-child(4) {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .users-table {
+      display: block;
+      overflow-x: auto;
+    }
+    
+    .modal {
+      width: 90%;
+    }
+    
+    .modal-footer {
+      flex-direction: column;
+    }
+    
+    .modal-footer button {
+      width: 100%;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .users-table th:nth-child(3),
+    .users-table td:nth-child(3) {
+      display: none;
+    }
+    
+    .btn-sm span {
+      display: none;
+    }
+    
+    .btn-sm i {
+      margin-right: 0;
+    }
+  }

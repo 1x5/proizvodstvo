@@ -1,0 +1,204 @@
+/* client/src/components/tasks/TaskItem.css */
+.task-item {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  
+  .task-card {
+    background-color: var(--input-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 8px var(--shadow-color);
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-left: 4px solid var(--primary-color);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .task-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px var(--shadow-color);
+  }
+  
+  .task-card.priority-high {
+    border-left-color: var(--danger-color);
+  }
+  
+  .task-card.priority-medium {
+    border-left-color: var(--warning-color);
+  }
+  
+  .task-card.priority-low {
+    border-left-color: var(--success-color);
+  }
+  
+  .task-title {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-size: 1rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+  }
+  
+  .task-description {
+    color: var(--gray-text);
+    font-size: 0.85rem;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    line-height: 1.4;
+    flex: 1;
+  }
+  
+  .task-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.75rem;
+    color: var(--gray-text);
+    margin-top: auto;
+    border-top: 1px solid var(--border-color);
+    padding-top: 0.75rem;
+  }
+  
+  .task-info {
+    display: flex;
+    gap: 0.75rem;
+  }
+  
+  .task-category,
+  .task-due-date,
+  .task-assignee {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .task-category i,
+  .task-due-date i,
+  .task-assignee i {
+    font-size: 0.8rem;
+    opacity: 0.8;
+  }
+  
+  .task-category {
+    padding: 0.1rem 0.4rem;
+    border-radius: 12px;
+    background-color: rgba(79, 93, 255, 0.1);
+    color: var(--primary-color);
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+  
+  .task-category.development {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+  }
+  
+  .task-category.design {
+    background-color: rgba(156, 39, 176, 0.1);
+    color: #9c27b0;
+  }
+  
+  .task-category.marketing {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+  }
+  
+  .task-status {
+    padding: 0.1rem 0.4rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+  }
+  
+  .task-status-new {
+    background-color: rgba(79, 93, 255, 0.1);
+    color: var(--primary-color);
+  }
+  
+  .task-status-inprogress {
+    background-color: rgba(33, 150, 243, 0.1);
+    color: #2196f3;
+  }
+  
+  .task-status-review {
+    background-color: rgba(255, 152, 0, 0.1);
+    color: #ff9800;
+  }
+  
+  .task-status-completed {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #4caf50;
+  }
+  
+  .task-assignee-avatar {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-right: 0.25rem;
+  }
+  
+  .task-priority {
+    display: flex;
+    align-items: center;
+  }
+  
+  .priority-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-right: 0.25rem;
+  }
+  
+  .priority-indicator.high {
+    background-color: var(--danger-color);
+  }
+  
+  .priority-indicator.medium {
+    background-color: var(--warning-color);
+  }
+  
+  .priority-indicator.low {
+    background-color: var(--success-color);
+  }
+  
+  .task-date {
+    color: var(--gray-text);
+    font-size: 0.7rem;
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+  }
+  
+  .task-date.overdue {
+    color: var(--danger-color);
+  }
+
+  /* Добавьте эти стили для категорий */
+.task-category {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }

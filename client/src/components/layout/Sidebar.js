@@ -43,13 +43,11 @@ const Sidebar = () => {
         </button>
       </div>
 
-      <div className="theme-section">
-        <div className="theme-label">Theme</div>
-        <ThemeToggle />
-      </div>
-
       <div className="sidebar-menu">
         <ul>
+          <li>
+            <ThemeToggle collapsed={collapsed} />
+          </li>
           <li className={isActive('/tasks')}>
             <Link to="/tasks">
               <i className="fas fa-tasks"></i>

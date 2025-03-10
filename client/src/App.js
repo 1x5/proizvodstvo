@@ -136,7 +136,11 @@ const App = () => {
       <SettingsProvider>
         <StatusProvider>
           <TaskProvider>
-            <Router>
+            {/* Добавляем prop future с флагами для устранения предупреждений React Router v7 */}
+            <Router future={{ 
+              v7_startTransition: true,  // Включаем флаг для плавных переходов
+              v7_relativeSplatPath: true // Включаем флаг для относительных путей
+            }}>
               <div className="app-container">
                 <Routes>
                   <Route path="/" element={

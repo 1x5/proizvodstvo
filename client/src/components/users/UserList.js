@@ -1,3 +1,4 @@
+// client/src/components/users/UserList.js
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
@@ -47,6 +48,22 @@ const UserList = () => {
     setRole('');
   };
 
+  // Функция форматирования даты
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('ru-RU');
+  };
+
+  // Функция для получения человекочитаемого названия роли
+  const getRoleName = (role) => {
+    switch(role) {
+      case 'admin': return 'Администратор';
+      case 'manager': return 'Менеджер';
+      case 'worker': return 'Сотрудник';
+      default: return role;
+    }
+  };
+
   if (loading) {
     return <Spinner />;
   }
@@ -72,11 +89,10 @@ const UserList = () => {
               <td>{u.email}</td>
               <td>
                 <span className={`role-badge role-${u.role}`}>
-                  {u.role === 'admin' ? 'Администратор' : 
-                   u.role === 'manager' ? 'Менеджер' : 'Сотрудник'}
+                  {getRoleName(u.role)}
                 </span>
               </td>
-              <td>{new Date(u.createdAt).toLocaleDateString()}</td>
+              <td>{formatDate(u.createdAt)}</td>
               <td>
                 {user._id !== u._id && (
                   <button onClick={() => openRoleModal(u)} className="btn btn-sm btn-secondary">
@@ -105,9 +121,11 @@ const UserList = () => {
               <div className="form-group">
                 <label htmlFor="role">Роль</label>
                 <select
+                  id="role"
                   name="role"
                   value={role}
                   onChange={e => setRole(e.target.value)}
+                  className="form-control"
                 >
                   <option value="worker">Сотрудник</option>
                   <option value="manager">Менеджер</option>
@@ -116,11 +134,11 @@ const UserList = () => {
               </div>
             </div>
             <div className="modal-footer">
-              <button onClick={() => handleRoleChange(selectedUser._id, role)} className="btn btn-primary">
-                Сохранить
-              </button>
               <button onClick={closeRoleModal} className="btn btn-secondary">
                 Отмена
+              </button>
+              <button onClick={() => handleRoleChange(selectedUser._id, role)} className="btn btn-primary">
+                <i className="fas fa-save"></i> Сохранить
               </button>
             </div>
           </div>

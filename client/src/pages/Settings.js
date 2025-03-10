@@ -1,10 +1,13 @@
-import React, { useContext, useEffect } from 'react';
+// client/src/pages/Settings.js
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { SettingsContext } from '../context/SettingsContext';
 import { StatusContext } from '../context/StatusContext';
 import Spinner from '../components/layout/Spinner';
 import StatusManager from '../components/settings/StatusManager';
 import CustomFieldsManager from '../components/settings/CustomFieldsManager';
+import CategoryManager from '../components/settings/CategoryManager';
+import './Settings.css';
 
 const Settings = ({ history }) => {
   const authContext = useContext(AuthContext);
@@ -15,7 +18,7 @@ const Settings = ({ history }) => {
   const { settings, loading: settingsLoading, getSettings, updateSettings } = settingsContext;
   const { getStatuses, loading: statusLoading } = statusContext;
 
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     companyName: ''
   });
 
@@ -62,14 +65,16 @@ const Settings = ({ history }) => {
             <label htmlFor="companyName">Название компании</label>
             <input
               type="text"
+              id="companyName"
               name="companyName"
               value={formData.companyName}
               onChange={onChange}
+              className="form-control"
             />
           </div>
-          <div className="form-group">
+          <div className="form-actions">
             <button type="submit" className="btn btn-primary">
-              Сохранить
+              <i className="fas fa-save"></i> Сохранить
             </button>
           </div>
         </form>
@@ -77,6 +82,10 @@ const Settings = ({ history }) => {
 
       <div className="settings-section">
         <StatusManager />
+      </div>
+
+      <div className="settings-section">
+        <CategoryManager />
       </div>
 
       <div className="settings-section">

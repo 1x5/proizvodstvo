@@ -22,13 +22,14 @@ exports.getSettings = async (req, res) => {
 
 // Обновление настроек
 exports.updateSettings = async (req, res) => {
-  const { companyName, logo, taskFields } = req.body;
+  const { companyName, logo, taskFields, categories } = req.body;
 
   // Построение объекта обновления
   const settingsFields = {};
   if (companyName !== undefined) settingsFields.companyName = companyName;
   if (logo !== undefined) settingsFields.logo = logo;
   if (taskFields) settingsFields.taskFields = taskFields;
+  if (categories) settingsFields.categories = categories;
   settingsFields.updatedBy = req.user.id;
   settingsFields.updatedAt = Date.now();
 

@@ -1,3 +1,4 @@
+// client/src/components/settings/StatusManager.js
 import React, { useState, useContext, useEffect } from 'react';
 import { StatusContext } from '../../context/StatusContext';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -72,43 +73,48 @@ const StatusManager = () => {
       
       <form onSubmit={handleSubmit} className="status-form">
         <div className="form-group">
-          <label htmlFor="name">Название статуса</label>
+          <label htmlFor="statusName">Название статуса</label>
           <input
             type="text"
+            id="statusName"
             name="name"
             value={name}
             onChange={e => setName(e.target.value)}
             required
+            className="form-control"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="color">Цвет</label>
+          <label htmlFor="statusColor">Цвет</label>
           <input
             type="color"
+            id="statusColor"
             name="color"
             value={color}
             onChange={e => setColor(e.target.value)}
+            className="form-control"
           />
         </div>
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
-            {editingStatus ? 'Обновить' : 'Добавить'}
+            <i className={editingStatus ? "fas fa-save" : "fas fa-plus"}></i>
+            {editingStatus ? ' Обновить' : ' Добавить'}
           </button>
           {editingStatus && (
             <button type="button" className="btn btn-secondary" onClick={handleCancel}>
-              Отмена
+              <i className="fas fa-times"></i> Отмена
             </button>
           )}
         </div>
       </form>
 
-      <div className="status-list">
-        <h4>Доступные статусы</h4>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="statuses">
-            {(provided) => (
-              <ul {...provided.droppableProps} ref={provided.innerRef} className="status-items">
-                {statusList.map((status, index) => (
+      <h4>Доступные статусы</h4>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="statuses">
+          {(provided) => (
+            <ul {...provided.droppableProps} ref={provided.innerRef} className="status-items">
+              {statusList && statusList.length > 0 ? (
+                statusList.map((status, index) => (
                   <Draggable key={status._id} draggableId={status._id} index={index}>
                     {(provided) => (
                       <li
@@ -130,13 +136,15 @@ const StatusManager = () => {
                       </li>
                     )}
                   </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
+                ))
+              ) : (
+                <li className="status-item">Нет доступных статусов</li>
+              )}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };

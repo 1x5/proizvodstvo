@@ -1,3 +1,4 @@
+// client/src/components/settings/CustomFieldsManager.js
 import React, { useState, useContext } from 'react';
 import { SettingsContext } from '../../context/SettingsContext';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
@@ -89,27 +90,43 @@ const CustomFieldsManager = () => {
     await updateSettings({ ...settings, taskFields: items });
   };
 
+  // Функция для получения человекочитаемого названия типа поля
+  const getFieldTypeName = (type) => {
+    switch(type) {
+      case 'text': return 'Текст';
+      case 'number': return 'Число';
+      case 'date': return 'Дата';
+      case 'dropdown': return 'Список';
+      case 'checkbox': return 'Чекбокс';
+      default: return type;
+    }
+  };
+
   return (
     <div className="custom-fields-manager">
       <h3>Пользовательские поля для задач</h3>
       
       <form onSubmit={handleSubmit} className="field-form">
         <div className="form-group">
-          <label htmlFor="name">Название поля</label>
+          <label htmlFor="fieldName">Название поля</label>
           <input
             type="text"
+            id="fieldName"
             name="name"
             value={name}
             onChange={e => setName(e.target.value)}
             required
+            className="form-control"
           />
         </div>
         <div className="form-group">
-          <label htmlFor="type">Тип поля</label>
+          <label htmlFor="fieldType">Тип поля</label>
           <select
+            id="fieldType"
             name="type"
             value={type}
             onChange={e => setType(e.target.value)}
+            className="form-control"
           >
             <option value="text">Текст</option>
             <option value="number">Число</option>
@@ -120,46 +137,49 @@ const CustomFieldsManager = () => {
         </div>
         {type === 'dropdown' && (
           <div className="form-group">
-            <label htmlFor="options">Варианты (через запятую)</label>
+            <label htmlFor="fieldOptions">Варианты (через запятую)</label>
             <input
               type="text"
+              id="fieldOptions"
               name="options"
               value={options}
               onChange={e => setOptions(e.target.value)}
               placeholder="Вариант 1, Вариант 2, Вариант 3"
               required
+              className="form-control"
             />
           </div>
         )}
         <div className="form-group checkbox">
           <input
             type="checkbox"
-            id="required"
+            id="fieldRequired"
             name="required"
             checked={required}
             onChange={e => setRequired(e.target.checked)}
           />
-          <label htmlFor="required">Обязательное поле</label>
+          <label htmlFor="fieldRequired">Обязательное поле</label>
         </div>
         <div className="form-actions">
           <button type="submit" className="btn btn-primary">
-            {editingField !== null ? 'Обновить' : 'Добавить'}
+            <i className={editingField !== null ? "fas fa-save" : "fas fa-plus"}></i>
+            {editingField !== null ? ' Обновить' : ' Добавить'}
           </button>
           {editingField !== null && (
             <button type="button" className="btn btn-secondary" onClick={resetForm}>
-              Отмена
+              <i className="fas fa-times"></i> Отмена
             </button>
           )}
         </div>
       </form>
 
-      <div className="fields-list">
-        <h4>Доступные поля</h4>
-        <DragDropContext onDragEnd={onDragEnd}>
-          <Droppable droppableId="fields">
-            {(provided) => (
-              <ul {...provided.droppableProps} ref={provided.innerRef} className="field-items">
-                {fields.map((field, index) => (
+      <h4>Доступные поля</h4>
+      <DragDropContext onDragEnd={onDragEnd}>
+        <Droppable droppableId="fields">
+          {(provided) => (
+            <ul {...provided.droppableProps} ref={provided.innerRef} className="field-items">
+              {fields && fields.length > 0 ? (
+                fields.map((field, index) => (
                   <Draggable key={index} draggableId={`field-${index}`} index={index}>
                     {(provided) => (
                       <li
@@ -170,7 +190,7 @@ const CustomFieldsManager = () => {
                       >
                         <div className="field-info">
                           <div className="field-name">{field.name}</div>
-                          <div className="field-type">{field.type}</div>
+                          <div className="field-type">{getFieldTypeName(field.type)}</div>
                           {field.required && <div className="field-required">Обязательное</div>}
                         </div>
                         <div className="field-actions">
@@ -184,13 +204,15 @@ const CustomFieldsManager = () => {
                       </li>
                     )}
                   </Draggable>
-                ))}
-                {provided.placeholder}
-              </ul>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </div>
+                ))
+              ) : (
+                <li className="status-item">Нет доступных полей</li>
+              )}
+              {provided.placeholder}
+            </ul>
+          )}
+        </Droppable>
+      </DragDropContext>
     </div>
   );
 };

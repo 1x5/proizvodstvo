@@ -1,28 +1,69 @@
 /* client/src/components/layout/ThemeToggle.css */
-.theme-toggle {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.theme-menu-item {
+    padding: 0;
+    margin-bottom: 0.5rem;
+    position: relative;
   }
   
-  .theme-toggle i {
+  .theme-menu-header {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    margin: 0 0.5rem;
+  }
+  
+  .theme-menu-header:hover {
+    background-color: var(--hover-color);
+  }
+  
+  .theme-menu-icon {
+    font-size: 1.2rem;
+    margin-right: 0.75rem;
+    width: 20px;
+    text-align: center;
     color: var(--text-color);
   }
   
-  .switch {
-    position: relative;
-    display: inline-block;
-    width: 40px;
-    height: 20px;
+  .theme-menu-text {
+    flex: 1;
+    color: var(--text-color);
   }
   
-  .switch input {
+  .theme-menu-arrow {
+    font-size: 0.8rem;
+    color: var(--gray-text);
+  }
+  
+  .theme-submenu {
+    padding: 0 1rem 0.5rem 3rem;
+  }
+  
+  .theme-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 0;
+    color: var(--text-color);
+  }
+  
+  /* Стили для переключателя */
+  .theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 22px;
+  }
+  
+  .theme-switch input {
     opacity: 0;
     width: 0;
     height: 0;
   }
   
-  .slider {
+  .theme-slider {
     position: absolute;
     cursor: pointer;
     top: 0;
@@ -31,14 +72,14 @@
     bottom: 0;
     background-color: #ccc;
     transition: .4s;
-    border-radius: 20px;
+    border-radius: 22px;
   }
   
-  .slider:before {
+  .theme-slider:before {
     position: absolute;
     content: "";
-    height: 16px;
-    width: 16px;
+    height: 18px;
+    width: 18px;
     left: 2px;
     bottom: 2px;
     background-color: white;
@@ -46,14 +87,77 @@
     border-radius: 50%;
   }
   
-  input:checked + .slider {
+  input:checked + .theme-slider {
     background-color: var(--primary-color);
   }
   
-  input:focus + .slider {
+  input:focus + .theme-slider {
     box-shadow: 0 0 1px var(--primary-color);
   }
   
-  input:checked + .slider:before {
-    transform: translateX(20px);
+  input:checked + .theme-slider:before {
+    transform: translateX(22px);
+  }
+  
+  /* Всплывающее меню для свернутой боковой панели */
+  .theme-hover-popup {
+    position: absolute;
+    left: 70px; /* Фиксированное расстояние вместо 100% */
+    top: -5px; /* Немного выше, чтобы соответствовать иконке */
+    width: 180px;
+    background-color: var(--card-bg);
+    border-radius: 6px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); /* Более заметная тень */
+    z-index: 1010; /* Увеличенный z-index */
+    margin-left: 5px;
+    overflow: hidden;
+    animation: fadeIn 0.2s ease-in-out; /* Анимация появления */
+  }
+  
+  /* Анимация для плавного появления */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  
+  .theme-popup-header {
+    padding: 0.75rem 1rem;
+    font-weight: 500;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-color);
+  }
+  
+  .theme-popup-content {
+    padding: 0.75rem 1rem;
+  }
+  
+  /* Убедимся, что иконка в свернутом режиме имеет корректный размер и положение */
+  .sidebar.collapsed .theme-menu-icon {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .sidebar.collapsed .theme-menu-header {
+    padding: 0.75rem 0;
+    margin: 0 auto;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  /* Добавим стиль для более заметной обратной связи при наведении */
+  .sidebar.collapsed .theme-menu-header:hover {
+    background-color: var(--hover-color);
+  }
+  
+  /* Дополнительные стили для свернутого режима */
+  .sidebar.collapsed .theme-menu-item {
+    position: relative;
+  }
+  
+  /* Обеспечиваем, чтобы всплывающее меню было видимым и не скрывалось при наведении */
+  .sidebar.collapsed .theme-menu-item:hover .theme-hover-popup {
+    display: block;
   }

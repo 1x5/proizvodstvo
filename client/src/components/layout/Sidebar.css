@@ -1,4 +1,26 @@
-/* client/src/components/layout/Sidebar.css */
+.theme-item {
+    cursor: pointer;
+  }
+  
+  .theme-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+  
+  .theme-toggle-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .sidebar.collapsed .theme-toggle-container {
+    margin: 0 auto;
+  }
+
 .sidebar {
     width: 250px;
     height: 100vh;
@@ -57,23 +79,6 @@
     background-color: var(--hover-color);
   }
   
-  .theme-section {
-    padding: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border-color);
-  }
-  
-  .sidebar.collapsed .theme-section {
-    padding: 1rem 0.5rem;
-  }
-  
-  .theme-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-  }
-  
   .sidebar-menu {
     flex: 1;
     overflow-y: auto;
@@ -90,7 +95,8 @@
     margin-bottom: 0.5rem;
   }
   
-  .sidebar-menu li a {
+  .sidebar-menu li a, 
+  .sidebar-menu .sidebar-item {
     display: flex;
     align-items: center;
     padding: 0.75rem 1rem;
@@ -99,26 +105,41 @@
     transition: all 0.3s ease;
     border-radius: 6px;
     margin: 0 0.5rem;
+    cursor: pointer;
   }
   
-  .sidebar-menu li a:hover {
+  .sidebar-menu li a:hover,
+  .sidebar-menu .sidebar-item:hover {
     background-color: var(--hover-color);
   }
   
   .sidebar-menu li.active a {
     background-color: var(--active-bg);
-    color: var(--active-color);
+    color: var(--text-light);
     font-weight: 500;
   }
   
-  .sidebar-menu li a i {
+  .sidebar-menu li a i,
+  .sidebar-menu .sidebar-item i {
     font-size: 1.2rem;
     margin-right: 0.75rem;
     width: 20px;
     text-align: center;
   }
   
-  .sidebar.collapsed .sidebar-menu li a span {
+  .sidebar.collapsed .sidebar-menu li a,
+  .sidebar.collapsed .sidebar-menu .sidebar-item {
+    justify-content: center;
+    padding: 0.75rem 0;
+  }
+  
+  .sidebar.collapsed .sidebar-menu li a i,
+  .sidebar.collapsed .sidebar-menu .sidebar-item i {
+    margin-right: 0;
+  }
+  
+  .sidebar.collapsed .sidebar-menu li a span,
+  .sidebar.collapsed .menu-text {
     display: none;
   }
   

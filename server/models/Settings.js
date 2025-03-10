@@ -8,6 +8,20 @@ const SettingsSchema = new mongoose.Schema({
   logo: {
     type: String
   },
+  categories: [{
+    id: {
+      type: String,
+      required: true
+    },
+    name: {
+      type: String,
+      required: true
+    },
+    color: {
+      type: String,
+      default: '#4CAF50'
+    }
+  }],
   taskFields: [{
     name: {
       type: String,
