@@ -1,10 +1,12 @@
-import React, { createContext, useReducer } from 'react';
+// client/src/context/SettingsContext.js
+import React, { createContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 import settingsReducer from './reducers/settingsReducer';
 
 // Начальное состояние
 const initialState = {
   settings: null,
+  theme: localStorage.getItem('theme') || 'light', // Добавляем тему
   loading: true,
   error: null
 };
@@ -15,6 +17,16 @@ export const SettingsContext = createContext(initialState);
 // Провайдер контекста
 export const SettingsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(settingsReducer, initialState);
+
+  // При изменении темы обновляем документ
+  useEffect(() => {
+    if (state.theme === 'dark') {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+    localStorage.setItem('theme', state.theme);
+  }, [state.theme]);
 
   // Получение настроек
   const getSettings = async () => {
@@ -59,6 +71,21 @@ export const SettingsProvider = ({ children }) => {
     }
   };
 
+  // Переключение темы
+  const toggleTheme = () => {
+    dispatch({
+      type: 'TOGGLE_THEME'
+    });
+  };
+
+  // Установка темы
+  const setTheme = (theme) => {
+    dispatch({
+      type: 'SET_THEME',
+      payload: theme
+    });
+  };
+
   // Очистка ошибок
   const clearErrors = () => {
     dispatch({ type: 'CLEAR_ERRORS' });
@@ -68,10 +95,13 @@ export const SettingsProvider = ({ children }) => {
     <SettingsContext.Provider
       value={{
         settings: state.settings,
+        theme: state.theme,
         loading: state.loading,
         error: state.error,
         getSettings,
         updateSettings,
+        toggleTheme,
+        setTheme,
         clearErrors
       }}
     >

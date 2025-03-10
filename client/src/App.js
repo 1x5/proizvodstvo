@@ -1,12 +1,12 @@
 // client/src/App.js
-import React from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, AuthContext } from './context/AuthContext';
 import { TaskProvider } from './context/TaskContext';
 import { StatusProvider } from './context/StatusContext';
-import { SettingsProvider } from './context/SettingsContext';
+import { SettingsProvider, SettingsContext } from './context/SettingsContext';
 import PrivateRoute from './components/routing/PrivateRoute';
-import Navbar from './components/layout/Navbar';
+import Sidebar from './components/layout/Sidebar';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import TaskBoard from './pages/TaskBoard';
@@ -19,21 +19,21 @@ import './App.css';
 
 // Временные компоненты-заглушки для новых разделов
 const Calendar = () => (
-  <div className="container">
+  <div>
     <h2 className="page-title">Календарь</h2>
     <p>Раздел в разработке</p>
   </div>
 );
 
 const Reports = () => (
-  <div className="container">
+  <div>
     <h2 className="page-title">Отчеты</h2>
     <p>Раздел в разработке</p>
   </div>
 );
 
 const Clients = () => (
-  <div className="container">
+  <div>
     <h2 className="page-title">Клиенты</h2>
     <p>Раздел в разработке</p>
   </div>
@@ -44,17 +44,83 @@ if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
 
-// Компонент для условного рендеринга навигационной панели
+// Компонент для условного рендеринга навигационной панели и боковой панели
 const AppLayout = ({ children }) => {
   const location = useLocation();
+  const authContext = useContext(AuthContext);
+  const settingsContext = useContext(SettingsContext);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
-  // Скрываем навигацию на страницах входа и регистрации
-  const hideNavbar = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/';
+  const { isAuthenticated } = authContext;
+  const { theme } = settingsContext;
+  
+  // Скрываем боковую панель на страницах входа и регистрации
+  const hideNavigation = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/';
+  
+  // Обрабатываем изменение размера окна для мобильной версии
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 768) {
+        setSidebarCollapsed(true);
+      }
+    };
+    
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Проверяем при монтировании
+    
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+  
+  // Закрываем мобильное меню при изменении маршрута
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
+  
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
+  
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
+  };
+  
+  // Определяем классы для основного содержимого
+  const contentClasses = `main-content ${sidebarCollapsed ? 'sidebar-collapsed' : ''} ${hideNavigation ? 'no-sidebar' : ''}`;
   
   return (
     <>
-      {!hideNavbar && <Navbar />}
-      <div className={hideNavbar ? 'container-no-navbar' : 'container'}>
+      {isAuthenticated && !hideNavigation && (
+        <>
+          <Sidebar 
+            collapsed={sidebarCollapsed} 
+            toggleCollapse={toggleSidebar} 
+            mobileOpen={mobileMenuOpen} 
+            closeMobileMenu={() => setMobileMenuOpen(false)}
+          />
+          {mobileMenuOpen && (
+            <div className="sidebar-overlay" onClick={() => setMobileMenuOpen(false)} />
+          )}
+        </>
+      )}
+      
+      {isAuthenticated && !hideNavigation && window.innerWidth <= 768 && (
+        <div className="mobile-header">
+          <button className="mobile-menu-toggle" onClick={toggleMobileMenu}>
+            <i className="fas fa-bars"></i>
+          </button>
+          <div className="logo">
+            {/* Логотип или название компании */}
+          </div>
+          <div className="user-avatar-mobile">
+            <i className="fas fa-user"></i>
+          </div>
+        </div>
+      )}
+      
+      <div className={contentClasses}>
         {children}
       </div>
     </>
